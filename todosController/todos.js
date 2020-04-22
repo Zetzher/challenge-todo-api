@@ -34,22 +34,11 @@ class TodosController {
   }
 
   async createTodo(req, res) {
-    let newTodo = new Todo(req.body);
-    if (!req.body.title) {
-      return res.status(400).send({
-        success: 'false',
-        message: 'title is required',
-      });
-    }
-    try {
-      const todo = await newTodo.save();
-      res.status(200).json(todo);
-    } catch (error) {
-      res.status(400).send({
-        success: 'false',
-        message: 'Unable to save to database',
-      });
-    }
+    console.log(req.body);
+    const { title, body } = req.body;
+    let newTodo = new Todo({ title, body });
+    const todo = await newTodo.save();
+    res.status(200).json(todo);
   }
 
   async updateTodo(req, res){
